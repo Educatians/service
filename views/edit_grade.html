@@ -1,0 +1,63 @@
+{% extends 'internal.html' %}
+
+{% block internal_body %}
+
+    <section>
+        <header class="bck light">
+            <h3 class="on-left text thin">{% if user.type == 'teacher' or user.type == 'user' %}Mis {% endif %}Clases</h3>
+            {% if user.type == 'teacher' or user.type == 'admin' or user.type == 'administrative' %}
+            {% endif %}
+        </header>
+        <article class="padding scroll">
+            <div class="margin responsive">
+                <div class="padding bck light">
+                    <h4 class="text book inline"><span class="icon asterisk color theme"></span> Nombre de la clase</h4>
+                </div>
+                <div class="form margin-top">
+                    <input type="text" class="responsive" />
+                </div>
+            </div>
+
+            <div class="row">
+            <div class="margin inline column_4">
+                <div class="padding bck light">
+                    <h4 class="text book inline"><span class="icon asterisk color theme"></span> Fecha de inicio</h4>
+                </div>
+                <div class="form margin-top">
+                    <input type="date" class="responsive" />
+                </div>
+            </div>
+
+            <div class="margin inline column_4">
+                <div class="padding bck light">
+                    <h4 class="text book inline"><span class="icon asterisk color theme"></span> Fecha de fin</h4>
+                </div>
+                <div class="form margin-top">
+                    <input type="date" class="responsive" />
+                </div>
+            </div>
+
+            </div>
+
+            <div class="block">
+                <div class="margin padding bck light">
+                    <h4 class="text book inline"><span class="icon asterisk color theme"></span> Profesor/es</h4>
+                </div>
+            </div>
+
+            <div class="block padding" id="profesors">
+                <h5 class="text book inline"><span class="icon asterisk color theme"></span> Román Sarria</h5>
+                <nav class="inline on-right">
+                    <a href="#" class="button alert small icon remove"></a>
+                </nav>
+            </div>
+        </article>
+    </section>
+
+{% endblock %}
+
+{% block internal_script %}
+    <script>
+        
+    </script>
+{% endblock %}

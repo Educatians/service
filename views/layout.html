@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Appians</title>
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    
+    {% block css %}{% endblock %}
+
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="/javascripts/underscore.min.js"></script>
+</head>
+<body {% block body_data %}{% endblock %}>
+    {% block body %}{% endblock %}
+
+    <script src="/javascripts/tuktuk.js"></script>
+    {% block footer_script %}{% endblock %}
+</body>
+</html>

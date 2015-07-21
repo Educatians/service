@@ -1,0 +1,164 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+<style>
+    aside > header .logo {
+            margin-top: 10px;
+            max-height: 30px; }
+
+        aside footer img {
+          height: 16px;
+          position: relative;
+          top: 5px;
+          left: 2px; }
+
+        .thumb {
+            height: 96px;
+            margin-bottom: 2.5em;
+            text-align: center;
+            line-height: 96px;
+        }
+        .column_4.thumb {
+            height: 220px;
+            line-height: 220px;
+        }
+</style>
+{% endblock %}
+
+{% block body_data %}data-tuktuk="boxes"{% endblock %}
+
+{% block body %}
+
+{% block profile %}
+<aside id="menu" class="absolute bck light column_3">
+        <header class="bck theme">
+            <div class="session on-left">
+                <strong>Perfil</strong>
+            </div>
+            <a href="#" data-box="close" class="on-right text big icon remove color white"></a>
+        </header>
+        <article class="scroll">
+            <img src="{% if user.avatar %}{{ user.avatar }}{% else %}http://www.gravatar.com/avatar/?d=mm&s=200{% endif %}" id="change_picture" class="responsive padding-left padding-top padding-right rounded margin-bottom"/>
+
+            <div class="margin-left margin-right">
+                <h4>Actualizá tu perfil</h4>
+            </div>
+                
+                <form class="form margin-left margin-right margin-top">
+                    <input type="hidden" name="avatar" id="avatar" value="{% if user.avatar %}{{ user.avatar }}{% else %}http://www.gravatar.com/avatar/?d=mm&s=200{% endif %}" />
+
+                    <p>
+                        <input type="text" class="anchor" name="firstname" id="firstname" value="{{ user.firstname }}" />
+                    </p>
+
+                    <p>
+                        <input type="text" class="anchor" name="lastname" id="lastname" value="{{ user.lastname }}" />
+                    </p>
+
+                    <hr/>
+                    <p>
+                        <label>Fecha de Nacimiento</label>
+                        <input type="date" class="anchor" name="borndate" id="borndate" />
+                    </p>
+                </form>
+
+            <hr/>
+            <div class="margin" data-tuktuk="buttons">
+                <a href="#" id="updateprofile" class="button anchor success">Actualizar</a>
+            </div>
+            <div class="margin" data-tuktuk="buttons">
+                <a href="/logout" class="button anchor alert">Salir</a>
+            </div>
+            <hr>
+        </article>
+    </aside>
+{% endblock %}
+
+    <aside class="bck dark column_3">
+        <header class="text center bck color">
+            <h1 class="on-left"><strong>app</strong>ians</h1><small class="on-left">beta</small>
+            <a href="#" class="on-right text big icon cog" data-tuktuk-box="menu"></a>
+        </header>
+        <article class="scroll">
+            <img src="{% if user.avatar %}{{ user.avatar }}{% else %}http://www.gravatar.com/avatar/?d=mm&s=200{% endif %}" class="responsive padding-left padding-top padding-right rounded margin-bottom" id="user_avatar"/>
+
+            <div class="margin-left margin-right">
+                <h4 class="text bold color theme inline">{{ user.firstname }} {{ user.lastname }}</h4>
+                <!--<span class="margin-left tag bck theme inline text bold">pro</span>-->
+            </div>
+
+            <hr>
+            <ul class="margin" data-tuktuk="totals">
+                <li style="cursor: pointer;" onclick="location.href='/grades';"><strong>{{ user.grades_count }}</strong><small>Clases</small></li>
+                <li style="cursor: pointer;" onclick="location.href='/message/box/received';"><strong>{{ user.messages_count }}</strong><small>Mensajes</small></li>
+                <li><strong>90%</strong><small>Asistencia</small></li>
+            </ul>
+
+            <nav data-tuktuk="menu" class="text bold">
+                <a href="/dashboard"><span class="icon home"></span>Inicio</a>
+                <a href="/grades"><span class="icon group"></span>{% if user.type == 'teacher' or user.type == 'user' %}Mis {% endif %}Clases</a>
+                <a href="#" data-tuktuk-modal="modal-message"><span class="icon envelope-alt"></span>Nuevo Mensaje</a>
+                <a href="/calendar"><span class="icon calendar"></span>Calendario</a>
+                <hr/>
+                {% block internal_menu %}{% endblock %}
+            </nav>
+        </article>
+        <footer class="bck darkest text center">
+            by Speryans
+        </footer>
+    </aside>
+
+    {% block internal_body %}{% endblock %}
+
+    <div id="modal-message" data-tuktuk="modal" class="side column_5">
+        <header>
+            <h4 class="inline text book">Nuevo Mensaje</h4>
+            <button data-modal="close" class="transparent small on-right inline icon remove"></button>
+        </header>
+        <article class="form scroll">
+            <p>
+                <label>Receptor</label>
+                <small>Haga doble click sobre el usuario para eliminar.</small>
+                <div id="message_users" class="margin-bottom margin-top scroll" style="max-height: 70px;"></div>
+            </p>
+            <p>
+                <label>Búsqueda</label>
+                <input type="text" class="anchor" name="name" id="message_receiver" placeholder="Ingrese el usuario o clase a buscar..." />
+                <div id="message_results"></div>
+            </p>
+            <br/>
+
+            <p>
+                <label>Título</label>
+                <input type="text" class="anchor" name="name" id="message_name" placeholder="Ej. Importante aviso" />
+            </p>
+            <br/>
+
+            <label>Mensaje</label>
+            <textarea id="message_text" class="large" placeholder="Texto del mensaje"></textarea>
+            Ingrese el texto que desea enviar.
+        </article>
+        <footer>
+            <button id="send_message">Enviar</button>
+        </footer>
+    </div>
+
+    <div id="modal" data-tuktuk="modal" class="column_5">
+        <header>
+            <h4 class="text book inline" id="modal_title">Appians</h4>
+            <button data-modal="close" class="transparent small on-right inline icon remove"></button>
+        </header>
+        <article id="modal_text"></article>
+    </div>
+
+{% endblock %}
+
+{% block footer_script %}
+    <script type="text/javascript" src="/javascripts/sifter.min.js"></script>
+    <script type="text/javascript" src="https://www.dropbox.com/static/api/1/dropins.js" id="dropboxjs" data-app-key="fye6gy67e19skt5"></script>
+    <script type="text/javascript" src="/javascripts/app.min.js"></script>
+    <script>
+        internal.init();
+    </script>
+    {% block internal_script %}{% endblock %}
+{% endblock %}

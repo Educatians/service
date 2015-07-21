@@ -1,0 +1,130 @@
+{% extends 'internal.html' %}
+
+{% block internal_menu %}
+<a href="#" data-tuktuk-modal="modal-right"><span class="icon edit"></span>Nueva publicación</a>
+{% endblock%}
+
+{% block internal_body %}
+
+    <section>
+        <header class="bck light">
+            <h3 class="on-left text thin">{{ grade.name }}</h3>
+            {% block grade_menu %}
+            {% if user.type == 'teacher' or user.type == 'admin' or user.type == 'administrative' %}
+            <nav class="on-right">
+                <button class="small secondary">Tomar asistencia</button>
+            </nav>
+            {% endif %}
+            {% endblock %}
+        </header>
+
+        {% block grade_body %}
+        <article class="padding scroll">
+            {% if socials %}
+            {% for social in socials %}
+            <div class="margin-bottom">
+                
+                <h4 class="text book inline margin-bottom"><span class="icon asterisk color theme"></span> {{ social.name }}</h4>
+                <nav class="inline on-right">
+                    {% if user._id == social.creator.id %}
+                    <a href="/remove_social_stream/{{ social.id }}?r=/grade/{{ grade.id }}" class="button alert small"><span class="icon remove"></span>Eliminar</a>
+                    {% endif %}
+                </nav>
+
+                <div class="responsive radius bck light padding">
+                    {{ social.text }}
+                    {% if social.attachments %}
+                    <hr/>
+                    <p>
+                        <a href="javascript:$('#attachs_{{ social.id }}').toggle();">
+                            <span class="icon paper-clip"></span> Adjuntos
+                        </a>
+
+                        <small class="inline on-right">Creado por: {{ social.creator.firstname }} {{ social.creator.lastname }}</small>
+                    </p>
+                    <div id="attachs_{{ social.id }}" style="display: none;">
+                        {% for attachment in social.attachments %}
+                        <div style="text-align: center; max-width: 80px; display: inline-block; user-select: none;" class="margin radius light center">
+                            <a href="{{ attachment.link }}" target="_BLANK">
+                                <img src="{{ attachment.icon }}" height="30" />
+                                <p>
+                                    <small style="font-size: 0.7em;">{{ attachment.name }}</small>
+                                </p>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+                <div class="responsive radius bck light padding center">Este grupo no posee publicaciones.</div>
+            {% endif %}
+        </article>
+        {% endblock %}
+
+        <footer class="bck light">
+            <nav class="on-left text bold" data-tuktuk="menu">
+                <a href="/grade/{{ grade.id }}">Publicaciones</a>
+                <a href="/grade/{{ grade.id }}/users">Compañeros</a>
+                <a href="/grade/{{ grade.id }}/calendar">Agenda</a>
+                <a href="#">Asistencia</a>
+            </nav>
+        </footer>
+
+    </section>
+
+    <div id="modal-right" data-tuktuk="modal" class="side column_5">
+        <header>
+            <h4 class="inline text book">Nueva publicación</h4>
+            <button data-modal="close" class="transparent small on-right inline icon remove"></button>
+            <button id="social_attach" class="transparent small on-right inline icon paper-clip"></button>
+        </header>
+        <article class="form scroll">
+            {% if grade %}
+                <input type="hidden" id="social_grade" value="{{ grade.id }}" />
+                <p>
+                    Recuerde que esta publicación sólo será visible para el grupo actual.
+                </p>
+            {% else %}
+                <input type="hidden" id="grade" value="" />
+                <p>
+                    Tenga en cuenta que la actual publicación será visible a toda la institución.
+                </p>
+            {% endif%}
+            <br/>
+
+            <p>
+                <label>Título</label>
+                <input type="text" class="anchor" name="name" id="social_name" placeholder="Ej. Importante aviso" />
+            </p>
+            <br/>
+
+            <p>
+            <label>Mensaje</label>
+            <textarea id="social_text" class="large" placeholder="Texto de la publicación" rows="8"></textarea>
+            Ingrese el texto que desea publicar.
+            </p>
+            
+            <br/>
+            <p>
+                <label>Adjuntos:</label>
+                <small>Haga doble click sobre el archivo para eliminar.</small>
+                <section class="bck padding responsive">
+                <div id="social_attachments"></div>
+                </section>
+            </p>
+        </article>
+        <footer>
+            <button id="sendsocialbtn">Enviar</button>
+        </footer>
+    </div>
+
+{% endblock %}
+
+{% block internal_script %}
+    <script>
+        app.grade();
+    </script>
+{% endblock %}

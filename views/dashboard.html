@@ -1,0 +1,110 @@
+{% extends 'internal.html' %}
+
+{% block internal_menu %}
+<a href="#" data-tuktuk-modal="modal-right"><span class="icon edit"></span>Nueva publicación</a>
+{% endblock%}
+
+{% block internal_body %}
+
+    <section>
+        <header class="bck light">
+            <h3 class="on-left text thin">Noticias Generales <!--<span class="tag bck theme">NEW!</span>--></h3>
+            <!--<nav class="on-right">
+                <button class="tiny secondary">tiny</button>
+                <button class="small secondary">small</button>
+                <button>normal</button>
+            </nav>-->
+        </header>
+        <article class="padding scroll">
+            {% if socials %}
+            {% for social in socials %}
+            <div class="margin-bottom">
+                
+                <h4 class="text book inline margin-bottom"><span class="icon asterisk color theme"></span> {{ social.name }}</h4>
+                <nav class="inline on-right">
+                    {% if user._id == social.creator.id or user.type == 'administrative' or user.type == 'admin' %}
+                    <a href="/remove_social_stream/{{ social.id }}?r=/dashboard" class="button alert small"><span class="icon remove"></span>Eliminar</a>
+                    {% endif %}
+                </nav>
+
+                <div class="responsive radius bck light padding" style="overflow: hidden;">
+                    {{ social.text }}
+
+                    <hr/>
+                    <p>
+                        <small class="inline on-right">{{ social.created|date('d/m/y H:i') }}</small>
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+                <div class="responsive radius bck light padding center">No hay publicaciones.</div>
+            {% endif %}
+            <!--<div class="inline">
+                <div class="column_4 thumb bck light">thumb</div>
+                <div class="column_4 thumb bck light">thumb</div>
+            </div>-->
+
+            <!--<div class="margin-bottom">
+                <h4 class="text book inline"><span class="icon group color theme"></span> Friends</h4>
+                <nav class="inline on-right">
+                    <a href="#" class="button secondary small"><span class="icon search"></span>Search</a>
+                </nav>
+            </div>
+            <div class="inline">
+                <div class="column_2 thumb bck light">thumb</div>
+                <div class="column_2 thumb bck light">thumb</div>
+                <div class="column_2 thumb bck light">thumb</div>
+                <div class="column_2 thumb bck light">thumb</div>
+                <div class="column_2 thumb bck light">thumb</div>
+                <div class="column_2 thumb bck light">thumb</div>
+                <div class="column_2 thumb bck light">thumb</div>
+                <div class="column_2 thumb bck light">thumb</div>
+                <div class="column_2 thumb bck light">thumb</div>
+                <div class="column_2 thumb bck light">thumb</div>
+                <div class="column_2 thumb bck light">thumb</div>
+            </div>-->
+        </article>
+    </section>
+
+    <div id="modal-right" data-tuktuk="modal" class="side column_5">
+        <header>
+            <h4 class="inline text book">Nueva publicación</h4>
+            <button data-modal="close" class="transparent small on-right inline icon remove"></button>
+        </header>
+        <article class="form">
+            {% if grade %}
+                <input type="hidden" id="grade" value="{{ grade.id }}" />
+                <p>
+                    Recuerde que esta publicación sólo será visible para el grupo actual.
+                </p>
+            {% else %}
+                <input type="hidden" id="grade" value="" />
+                <p>
+                    Tenga en cuenta que la actual publicación será visible a toda la institución.
+                </p>
+            {% endif%}
+            <br/>
+
+            <p>
+                <label>Título</label>
+                <input type="text" class="anchor" name="name" id="social_name" placeholder="Ej. Importante aviso" />
+            </p>
+            <br/>
+
+            <label>Mensaje</label>
+            <textarea id="social_text" class="large" placeholder="Texto de la publicación"></textarea>
+            Ingrese el texto que desea publicar.
+        </article>
+        <footer>
+            <button id="sendsocialbtn">Enviar</button>
+        </footer>
+    </div>
+
+{% endblock %}
+
+{% block internal_script %}
+    <script>
+        app.social();
+    </script>
+{% endblock %}

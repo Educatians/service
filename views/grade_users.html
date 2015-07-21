@@ -1,0 +1,29 @@
+{% extends 'grade.html' %}
+
+{% block grade_body %}
+        <article class="padding scroll">
+            <h4 class="text book margin-bottom"><span class="icon group color theme"></span> Profesores</h4>
+
+            {% for person in grade.teacher %}
+            <div class="margin padding bck light">
+                
+                <h4 class="text book inline"><span class="icon asterisk color theme"></span> {{ person.firstname }} {{ person.lastname }}</h4>
+                <nav class="inline on-right">
+                    <a href="#" class="button small message_to_user" data-tuktuk-modal="modal-message" data-id="{{ person.id }}" data-name="{{ person.firstname }} {{ person.lastname }}"><span class="icon envelope-alt"></span>Mensaje</a>
+                </nav>
+            </div>
+            {% endfor %}
+
+            <h4 class="text book margin-bottom"><span class="icon group color theme"></span> Compañeros</h4>
+
+            {% for person in grade.users %}
+            <div class="margin padding bck light">
+                
+                <h4 class="text book inline"><span class="icon asterisk color theme"></span> {{ person.firstname }} {{ person.lastname }}</h4>
+                <nav class="inline on-right">
+                    <a href="#" class="button small message_to_user" data-tuktuk-modal="modal-message" data-id="{{ person.id }}" data-name="{{ person.firstname }} {{ person.lastname }}"><span class="icon envelope-alt"></span>Mensaje</a>
+                </nav>
+            </div>
+            {% endfor %}
+        </article>
+{% endblock %}

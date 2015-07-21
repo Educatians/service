@@ -1,0 +1,76 @@
+{% extends 'internal.html' %}
+
+{% block internal_body %}
+
+    <section>
+        <header class="bck light">
+            <h3 class="on-left text thin">Recibidos</h3>
+        </header>
+        <article class="padding scroll">
+            {% for message in messages %}
+            <div class="margin padding bck light">
+                
+                <h4 class="text book inline">
+                    {% if type == 'received' %}
+                    <span id="icon_{{ message.id }}" class="icon {% if message.read.indexOf(user._id) !== -1 %}ok{% else %}asterisk{% endif %} color theme"></span>
+                    {% else %}
+                    <span id="icon_{{ message.id }}" class="icon envelope-alt color theme"></span>
+                    {% endif %}
+                     {{ message.name }}
+                 </h4>
+                <nav class="inline on-right">
+                    <a href="#" class="button small show-message" data-type="{{ type }}" data-id="{{ message.id }}" data-name="{{ message.name }}" data-text="{{ message.text }}" data-tuktuk-modal="show-message"><span class="icon eye-open"></span>Ver</a>
+                </nav>
+            </div>
+            {% endfor %}
+            
+        </article>
+
+        <footer class="bck light">
+            <nav class="on-left text bold" data-tuktuk="menu">
+                <a href="/message/box/received">Recibidos</a>
+                <a href="/message/box/sent">Enviados</a>
+            </nav>
+        </footer>
+    </section>
+
+    <div id="show-message" data-tuktuk="modal" class="side column_5">
+        <header>
+            <h4 class="inline text book" id="show_message_name"></h4>
+            <button data-modal="close" class="transparent small on-right inline icon remove"></button>
+        </header>
+        <article class="form scroll">
+            <p>
+                <label>Mensage</label><br/>
+                <span class="margin-top" id="show_message_text"></span>
+            </p>
+            <br/>
+
+            {% if type == 'sent' %}
+            <p>
+                <label>Leído por</label><br/>
+                <div id="show_message_reads" class="margin-bottom margin-top scroll"></div>
+            </p>
+            <br/>
+            <p>
+                <label>Restan leer</label><br/>
+                <div id="show_message_noreads" class="margin-bottom margin-top scroll"></div>
+            </p>
+            {% endif %}
+        </article>
+        <footer>
+            {% if type == 'received' %}
+            <fieldset class="form">
+                <input type="checkbox" class="anchor" name="show_message_read" id="show_message_read" data-id="" placeholder="" /> Leído
+            </fieldset>
+            {% endif %}
+        </footer>
+    </div>
+
+{% endblock %}
+
+{% block internal_script %}
+    <script>
+        app.messages();
+    </script>
+{% endblock %}

@@ -1,0 +1,199 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+<style>
+        body > header .logo {
+            margin-top: 8px;
+            margin-right: 8px;
+            max-height: 30px; }
+
+        body > footer img {
+            height: 18px;
+            position: relative;
+            top: 5px;
+            left: 2px; }
+
+        section.landing input {
+            border-radius: 5px 0px 0px 5px !important;
+            height: 48px;}
+
+        section.landing button {
+            border-radius: 0px 5px 5px 0px !important;
+            height: 48px;}
+
+        .button.large, button.large {
+            font-size: 1.3em;}
+</style>
+{% endblock %}
+
+{% block body %}
+    <!-- ========================== HEADER ========================== -->
+    <header class="bck margin-top margin-bottom">
+        <div class="row">
+            <div class="column_6">
+                <h2 class="text italic thin on-left"><strong>app</strong>ians</h2><small class="margin-left on-left">beta</small>
+            </div>
+            <nav class="column_6 text right">
+                <a href="#" data-tuktuk-modal="login_modal" class="button secondary"><span class="icon user"></span>Login</a>
+                <a href="#" data-tuktuk-modal="register_modal" class="button"><span class="icon pencil"></span>Signup</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="bck darkest landing text center color white">
+        <div class="row">
+            <div class="column_10 offset_1">
+                <h1><strong>app</strong>ians</h1>
+                <h2 class="margin-bottom">Let your apps grows like magic.</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column_6 offset_3 form subscribe">
+                <input type="email" id="mail" class="large" placeholder="Your email address">
+                <button class="button large icon envelope"></button>
+            </div>
+        </div>
+        <h5 class="text book">Be in touch of news...</h5>
+    </section>
+
+    <section class="bck theme padding text center ">
+        <div class="row padding-bottom">
+            <div class="column_10 offset_1">
+                <h1 class="text book color default">Lorem ipsum dolor sit amet</h1>
+                <h4>
+                    Quam sunt quos minima consequatur dolore quaerat vel recusandae numquam ab qui dignissimos doloribus molestiae pariatur magnam libero nam consectetur asperiores maiores.
+                </h4>
+            </div>
+        </div>
+
+        <div class="row padding-top">
+            <div class="column_3">
+                <h2 class="icon user"></h2>
+                <h5 class="text normal">Lorem ipsum dolor sit</h5>
+                <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, ipsam, explicabo, fugit in magni delectus aliquid.</small>
+            </div>
+            <div class="column_3">
+                <h2 class="icon group"></h2>
+                <h5 class="text normal">Lorem ipsum dolor sit</h5>
+                <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, ipsam, explicabo, fugit in magni delectus aliquid.</small>
+            </div>
+            <div class="column_3">
+                <h2 class="icon cog"></h2>
+                <h5 class="text normal">Lorem ipsum dolor sit</h5>
+                <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, ipsam, explicabo, fugit in magni delectus aliquid.</small>
+            </div>
+            <div class="column_3">
+                <h2 class="icon twitter"></h2>
+                <h5 class="text normal">Lorem ipsum dolor sit</h5>
+                <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, ipsam, explicabo, fugit in magni delectus aliquid.</small>
+            </div>
+        </div>
+    </section>
+
+    <section class="bck light padding">
+        <div class="row text thin center">
+            <div class="column_10 offset_1">
+                <h1 class="text book color theme">Lorem ipsum dolor sit amet</h1>
+                <h4>
+                    Quam sunt quos minima consequatur dolore quaerat vel recusandae numquam ab qui dignissimos doloribus molestiae pariatur magnam libero nam consectetur asperiores maiores.
+                </h4>
+            </div>
+        </div>
+    </section>
+
+    <section class="bck lightest landing">
+        <div class="row text center">
+            <div class="column_10 offset_1">
+                <h2 class="text bold color theme">Lorem ipsum dolor sit amet</h2>
+                <h4 class="text book italic">Quam sunt quos minima consequatur</h4>
+                <a href="#" class="button large margin-top">Yes, please!</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="padding bck color">
+        <div class="row margin-bottom">
+            <div class="column_10 offset_1 text center">
+                <h1 class="color book theme">Author</h1>
+             </div>
+         </div>
+
+        <div class="row ">
+            <div class="column_4 offset_4 text center">
+            </div>
+        </div>
+    </section>
+
+    <footer class="bck dark padding">
+        <div class="row margin-top margin-bottom">
+            <div class="column_5">
+                <p class="text bold big">Copyright by Speryans</p>
+                We're focused on make your life easier.
+            </div>
+            <div class="column_4">
+                <p class="text bold big">Find us!</p>
+                You can look fo us on Twitter and Facebook!
+            </div>
+            <div class="column_3">
+                <p class="text bold big">Need some help?</p>
+                For quick answers or help follow us on Twitter
+            </div>
+        </div>
+    </footer>
+
+    <div id="login_modal" data-tuktuk="modal" class="column_5">
+        <header>
+            <h4 class="text thin">Login</h4>
+        </header>
+        <article>
+            <form>
+            	<p>
+            		<input type="text" class="anchor" id="username" placeholder="Username" value="rsarria@speryans.com" />
+            	</p>
+            	<p>
+            		<input type="password" class="anchor" id="password" placeholder="Password" value="master" />
+            	</p>
+            </form>
+        </article>
+        <footer>
+        	<button id="loginbtn" class="success"><span class="icon ok"></span>Login</button>
+            <button data-modal="close" class="alert"><span class="icon remove"></span>Close</button>
+        </footer>
+    </div>
+
+    <div id="register_modal" data-tuktuk="modal" class="column_5">
+        <header>
+            <h4 class="text thin">Register</h4>
+        </header>
+        <article>
+            <form>
+            	<p>
+            		<input type="text" class="anchor" id="firstname" placeholder="First Name" />
+            	</p>
+            	<p>
+            		<input type="text" class="anchor" id="lastname" placeholder="Last Name" />
+            	</p>
+            	<p>
+            		<input type="text" class="anchor" id="username" placeholder="Email" />
+            	</p>
+            	<p>
+            		<input type="password" class="anchor" id="password" placeholder="Password" />
+            	</p>
+            	<p>
+            		<input type="password" class="anchor" id="repeatpassword" placeholder="Repeat Password" />
+            	</p>
+            </form>
+        </article>
+        <footer>
+        	<button id="loginbtn" class="success"><span class="icon ok"></span>Register</button>
+            <button data-modal="close" class="alert"><span class="icon remove"></span>Cancel</button>
+        </footer>
+    </div>
+
+{% endblock %}
+
+{% block footer_script %}
+<script>
+    app.login();
+</script>
+{% endblock %}
